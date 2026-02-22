@@ -51,9 +51,14 @@
   align-items: center;
   gap: 0.5rem;
   color: #333;
+  margin: 0;
 }
 
 #remember-me {
+  margin: 0;
+}
+
+#remember-me-checkbox {
   cursor: pointer;
 }
 

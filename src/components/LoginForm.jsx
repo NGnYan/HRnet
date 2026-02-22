@@ -57,11 +57,13 @@ function LoginForm() {
         <div className="input-remember">
           <input
             type="checkbox"
-            id="remember-me"
+            id="remember-me-checkbox"
             checked={rememberMe}
             onChange={(e) => setRememberMe(e.target.checked)}
           />
-          <label htmlFor="remember-me">Remember me</label>
+          <label htmlFor="remember-me" id="remember-me">
+            Remember me
+          </label>
         </div>
 
         {error && <div className="login-error-message">{error}</div>}
