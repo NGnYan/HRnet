@@ -1,0 +1,25 @@
+.date-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.date-field input[type="date"] {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(108, 132, 63, 0.2);
+  background: rgba(255, 255, 255, 0.6);
+  transition: 0.2s ease;
+}
+
+.date-field input[type="date"]:focus {
+  outline: none;
+  border-color: #6c843f;
+  box-shadow: 0 0 0 3px rgba(108, 132, 63, 0.15);
+}
+
+.date-field input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}

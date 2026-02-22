@@ -1,0 +1,28 @@
+.select-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+}
+
+.select-field label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #2f3e1f;
+}
+
+.select-field select {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(108, 132, 63, 0.2);
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.select-field select:focus {
+  outline: none;
+  border-color: #6c843f;
+  box-shadow: 0 0 0 3px rgba(108, 132, 63, 0.15);
+}

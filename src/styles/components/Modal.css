@@ -1,0 +1,76 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(6px);
+
+  z-index: 1000;
+}
+
+.modal {
+  position: relative;
+
+  min-width: 320px;
+  max-width: 400px;
+
+  padding: 2.5rem 2rem;
+
+  border-radius: 24px;
+
+  background: #8ea95a;
+
+  backdrop-filter: blur(10px);
+
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+
+  text-align: center;
+
+  animation: modalFade 0.25s ease;
+}
+
+.modal p {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+
+  border: none;
+  background: none;
+
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  color: #ffffff;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.modal-close:hover {
+  transform: scale(1.2);
+  opacity: 0.7;
+}
+
+@keyframes modalFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
