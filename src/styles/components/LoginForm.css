@@ -1,0 +1,100 @@
+.sign-in-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 500px;
+  padding: 0 2rem;
+  margin: 0 auto;
+}
+
+.login-form {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(108, 132, 63, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-wrapper label {
+  font-weight: 500;
+  color: #333;
+}
+
+.input-wrapper input {
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(108, 132, 63, 0.2);
+  background: rgba(255, 255, 255, 0.6);
+  transition: 0.2s ease;
+}
+
+.input-wrapper input:focus {
+  outline: none;
+  border-color: #6c843f;
+  box-shadow: 0 0 0 3px rgba(108, 132, 63, 0.15);
+}
+
+.input-remember {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #333;
+}
+
+#remember-me {
+  cursor: pointer;
+}
+
+.login-error-message {
+  color: #c0392b;
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+}
+
+.sign-in-button {
+  padding: 0.9rem 1.5rem;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(to right, #6c843f, #8ea95a);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: 0.25s ease;
+}
+
+.sign-in-button:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(108, 132, 63, 0.25);
+}
+
+.sign-in-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 500px) {
+  .sign-in-content {
+    padding: 0 1rem;
+  }
+
+  .login-form {
+    padding: 1.5rem;
+  }
+
+  .sign-in-icon {
+    font-size: 3rem;
+  }
+}

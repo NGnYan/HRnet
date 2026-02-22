@@ -16,7 +16,7 @@
   padding: 0.7rem 1rem;
   border-radius: 10px;
   border: 1px solid rgba(108, 132, 63, 0.2);
-  background: rgba(255, 255, 255, 0.6);
+  background: rgb(245, 245, 245);
   cursor: pointer;
   transition: 0.2s ease;
 }
