@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { sanitizeInput } from "../utils.js";
 import "../styles/components/LoginForm.css";
 
 function LoginForm() {
@@ -35,7 +36,7 @@ function LoginForm() {
             id="username"
             value={email}
             onChange={(e) => {
-              setEmail(e.target.value);
+              setEmail(sanitizeInput(e.target.value));
               setEmailError("");
             }}
             required
@@ -49,7 +50,7 @@ function LoginForm() {
             type="password"
             id="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setPassword(sanitizeInput(e.target.value))}
             required
           />
         </div>
@@ -61,7 +62,7 @@ function LoginForm() {
             checked={rememberMe}
             onChange={(e) => setRememberMe(e.target.checked)}
           />
-          <label htmlFor="remember-me" id="remember-me">
+          <label htmlFor="remember-me-checkbox" id="remember-me">
             Remember me
           </label>
         </div>

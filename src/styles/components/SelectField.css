@@ -18,11 +18,23 @@
   border: 1px solid rgba(108, 132, 63, 0.2);
   background: rgb(245, 245, 245);
   cursor: pointer;
-  transition: 0.2s ease;
+  transition:
+    0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .select-field select:focus {
   outline: none;
   border-color: #6c843f;
   box-shadow: 0 0 0 3px rgba(108, 132, 63, 0.15);
+}
+
+.select-field select.input-error {
+  border: 1px solid red;
+  background-color: rgba(255, 0, 0, 0.05);
+}
+
+.select-field select.input-error:focus {
+  border-color: red;
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.2);
 }

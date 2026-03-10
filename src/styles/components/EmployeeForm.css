@@ -47,10 +47,25 @@
   box-shadow: 0 0 0 3px rgba(108, 132, 63, 0.15);
 }
 
+.input-error {
+  border: 1px solid red;
+}
+
+.input-error:focus {
+  border-color: red;
+  box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.15);
+}
+
 .form-footer {
-  margin-top: 3rem;
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-error {
+  color: red;
 }
 
 .save-btn {
