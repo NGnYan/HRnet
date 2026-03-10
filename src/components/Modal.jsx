@@ -21,9 +21,9 @@ function Modal({ message, onClose }) {
   };
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
-      <div className="modal">
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
         <button className="modal-close" onClick={onClose}>
-          x
+          &times;
         </button>
 
         <p>{message}</p>

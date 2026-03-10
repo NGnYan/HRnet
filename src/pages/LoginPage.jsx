@@ -1,18 +1,14 @@
-import "../styles/pages/LoginPage.css";
+import Layout from "../components/Layout";
 import LoginForm from "../components/LoginForm";
-import Sidebar from "../components/Sidebar";
-import UserProfile from "../components/UserProfile";
+import "../styles/pages/LoginPage.css";
 
 function LoginPage() {
   return (
     <div className="login-page">
-      <Sidebar />
-      <UserProfile />
-
-      <main className="login-main">
+      <Layout>
         <h2 className="page-title">Sign in</h2>
         <LoginForm />
-      </main>
+      </Layout>
     </div>
   );
 }
