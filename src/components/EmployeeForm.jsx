@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { sanitizeInput } from "../utils.js";
+import { createEmployee } from "../employeeService.js";
 import "../styles/components/EmployeeForm.css";
 import DateField from "./DateField.jsx";
 import SelectField from "./SelectField.jsx";
@@ -46,7 +47,7 @@ function EmployeeForm() {
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true);
 
@@ -67,15 +68,14 @@ function EmployeeForm() {
 
     setFormError("");
     setSubmitted(false);
-    const employees = JSON.parse(localStorage.getItem("employees")) || [];
-    employees.push({
+
+    await createEmployee({
       ...form,
       firstName: capitalizeWords(form.firstName.trim()),
       lastName: capitalizeWords(form.lastName.trim()),
       street: capitalizeWords(form.street.trim()),
       city: capitalizeWords(form.city.trim()),
     });
-    localStorage.setItem("employees", JSON.stringify(employees));
 
     setShowModal(true);
     setForm(initialState);
