@@ -1,12 +1,15 @@
+import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import UserProfile from "./UserProfile";
 
-function Layout({ children }) {
+function Layout() {
   return (
     <>
       <Sidebar />
       <UserProfile />
-      <main>{children}</main>
+      <main>
+        <Outlet />
+      </main>
     </>
   );
 }

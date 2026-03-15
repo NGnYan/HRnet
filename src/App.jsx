@@ -4,6 +4,7 @@ import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Home from "./pages/Home.jsx";
 import EmployeesList from "./pages/EmployeesList.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
+import Layout from "./components/Layout.jsx";
 import "./App.css";
 
 function App() {
@@ -11,23 +12,26 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/employees"
-          element={
-            <ProtectedRoute>
-              <EmployeesList />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="*" element={<ErrorPage />} />
+
+        <Route element={<Layout />}>
+          <Route path="*" element={<ErrorPage />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/employees"
+            element={
+              <ProtectedRoute>
+                <EmployeesList />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
