@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { sanitizeInput } from "../utils.js";
+import { sanitizeInput, nameRegex, zipCodeRegex } from "../utils.js";
 import { createEmployee } from "../employeeService.js";
-import "../styles/components/EmployeeForm.css";
 import DateField from "./DateField.jsx";
 import SelectField from "./SelectField.jsx";
 import Modal from "./Modal.jsx";
 import states from "../data/states.json";
 import departments from "../data/departments.json";
+import { useDispatch } from "react-redux";
+import { addEmployee } from "../store/employeesSlice.js";
+import "../styles/components/EmployeeForm.css";
 
 function EmployeeForm() {
   const initialState = {
@@ -26,6 +28,7 @@ function EmployeeForm() {
   const [formError, setFormError] = useState("");
   const [showModal, setShowModal] = useState(false);
 
+  const dispatch = useDispatch();
   const today = new Date().toISOString().split("T")[0];
 
   const handleChange = (e) => {
@@ -53,12 +56,16 @@ function EmployeeForm() {
 
     const allFieldsFilled =
       form.firstName.trim() &&
+      nameRegex.test(form.firstName.trim()) &&
       form.lastName.trim() &&
+      nameRegex.test(form.lastName.trim()) &&
       form.dateOfBirth &&
       form.startDate &&
       form.street.trim() &&
       form.city.trim() &&
+      nameRegex.test(form.city.trim()) &&
       form.state &&
+      zipCodeRegex.test(form.zipCode) &&
       form.department;
 
     if (!allFieldsFilled) {
@@ -69,13 +76,17 @@ function EmployeeForm() {
     setFormError("");
     setSubmitted(false);
 
-    await createEmployee({
+    const newEmployee = {
       ...form,
+      id: crypto.randomUUID(),
       firstName: capitalizeWords(form.firstName.trim()),
       lastName: capitalizeWords(form.lastName.trim()),
       street: capitalizeWords(form.street.trim()),
       city: capitalizeWords(form.city.trim()),
-    });
+    };
+
+    await createEmployee(newEmployee);
+    dispatch(addEmployee(newEmployee));
 
     setShowModal(true);
     setForm(initialState);
@@ -90,7 +101,11 @@ function EmployeeForm() {
             <input
               id="firstName"
               className={`input-normal ${
-                submitted && !form.firstName.trim() ? "input-error" : ""
+                submitted &&
+                (!form.firstName.trim() ||
+                  !nameRegex.test(form.firstName.trim()))
+                  ? "input-error"
+                  : ""
               }`}
               name="firstName"
               value={form.firstName}
@@ -101,7 +116,10 @@ function EmployeeForm() {
             <input
               id="lastName"
               className={`input-normal ${
-                submitted && !form.lastName.trim() ? "input-error" : ""
+                submitted &&
+                (!form.lastName.trim() || !nameRegex.test(form.lastName.trim()))
+                  ? "input-error"
+                  : ""
               }`}
               name="lastName"
               value={form.lastName}
@@ -143,7 +161,10 @@ function EmployeeForm() {
             <input
               id="cityName"
               className={`input-normal ${
-                submitted && !form.city.trim() ? "input-error" : ""
+                submitted &&
+                (!form.city.trim() || !nameRegex.test(form.city.trim()))
+                  ? "input-error"
+                  : ""
               }`}
               name="city"
               value={form.city}
@@ -165,7 +186,11 @@ function EmployeeForm() {
             <label htmlFor="zipCode">Zip Code</label>
             <input
               id="zipCode"
-              className={`input-normal ${submitted && !form.zipCode ? "input-error" : ""}`}
+              className={`input-normal ${
+                submitted && !zipCodeRegex.test(form.zipCode)
+                  ? "input-error"
+                  : ""
+              }`}
               type="text"
               name="zipCode"
               value={form.zipCode}

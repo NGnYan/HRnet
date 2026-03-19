@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { sanitizeInput } from "../utils.js";
+import { sanitizeInput, emailRegex } from "../utils.js";
 import "../styles/components/LoginForm.css";
 
 function LoginForm() {
@@ -8,8 +8,6 @@ function LoginForm() {
   const [rememberMe, setRememberMe] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [error, setError] = useState("");
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const handleSubmit = (e) => {
     e.preventDefault();

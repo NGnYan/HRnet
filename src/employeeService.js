@@ -1,11 +1,22 @@
-const BASE_URL = import.meta.env.VITE_API_URL;
+async function genericallTryCatch(fn, errorMessage = "EmployeeService error") {
+  try {
+    return await fn();
+  } catch (error) {
+    console.error(errorMessage, error);
+    throw error;
+  }
+}
 
 export async function createEmployee(employee) {
-  const employees = JSON.parse(localStorage.getItem("employees")) || [];
-  employees.push({ id: crypto.randomUUID(), ...employee });
-  localStorage.setItem("employees", JSON.stringify(employees));
+  return genericallTryCatch(() => {
+    const employees = JSON.parse(localStorage.getItem("employees")) || [];
+    employees.push(employee);
+    localStorage.setItem("employees", JSON.stringify(employees));
+  }, "Failed to create employee");
 }
 
 export async function getEmployees() {
-  return JSON.parse(localStorage.getItem("employees")) || [];
+  return genericallTryCatch(() => {
+    return JSON.parse(localStorage.getItem("employees")) || [];
+  }, "Failed to fetch employees");
 }

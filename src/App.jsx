@@ -12,9 +12,9 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="*" element={<ErrorPage />} />
 
         <Route element={<Layout />}>
-          <Route path="*" element={<ErrorPage />} />
           <Route
             path="/"
             element={

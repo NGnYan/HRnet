@@ -1,0 +1,11 @@
+[
+  { "key": "firstName", "title": "First Name" },
+  { "key": "lastName", "title": "Last Name" },
+  { "key": "dateOfBirth", "title": "Date of Birth" },
+  { "key": "startDate", "title": "Start Date" },
+  { "key": "street", "title": "Street" },
+  { "key": "city", "title": "City" },
+  { "key": "state", "title": "State" },
+  { "key": "zipCode", "title": "Zip Code" },
+  { "key": "department", "title": "Department" }
+]
