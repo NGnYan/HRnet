@@ -1,4 +1,5 @@
 import { DataTable } from "@ngnyan/data-table";
+import "@ngnyan/data-table/dist/data-table.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setEmployees } from "../store/employeesSlice.js";
@@ -22,7 +23,11 @@ function EmployeesList() {
     <>
       <h2 className="page-title">Current Employees</h2>
       <div className="table-container">
-        <DataTable columns={employeeColumns} data={employees} />
+        <DataTable
+          columns={employeeColumns}
+          data={employees}
+          headerBgColor="#87A353"
+        />
       </div>
     </>
   );
