@@ -7,7 +7,7 @@ import Modal from "./Modal.jsx";
 import states from "../data/states.json";
 import departments from "../data/departments.json";
 import { useDispatch } from "react-redux";
-import { addEmployee } from "../store/employeesSlice.js";
+import { addEmployee } from "../redux/employeesSlice.js";
 import "../styles/components/EmployeeForm.css";
 
 function EmployeeForm() {
