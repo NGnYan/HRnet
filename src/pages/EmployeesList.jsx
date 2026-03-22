@@ -28,6 +28,9 @@ function EmployeesList() {
           data={employees}
           headerBgColor="#87A353"
           sortable={true}
+          sortPlaceholder="-"
+          sortPosition="right"
+          sortLabel="Trier par :"
         />
       </div>
     </>
