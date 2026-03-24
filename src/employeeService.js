@@ -1,4 +1,4 @@
-async function genericallTryCatch(fn, errorMessage = "EmployeeService error") {
+async function genericCall(fn, errorMessage = "EmployeeService error") {
   try {
     return await fn();
   } catch (error) {
@@ -8,7 +8,7 @@ async function genericallTryCatch(fn, errorMessage = "EmployeeService error") {
 }
 
 export async function createEmployee(employee) {
-  return genericallTryCatch(() => {
+  return genericCall(() => {
     const employees = JSON.parse(localStorage.getItem("employees")) || [];
     employees.push(employee);
     localStorage.setItem("employees", JSON.stringify(employees));
@@ -16,7 +16,7 @@ export async function createEmployee(employee) {
 }
 
 export async function getEmployees() {
-  return genericallTryCatch(() => {
+  return genericCall(() => {
     return JSON.parse(localStorage.getItem("employees")) || [];
   }, "Failed to fetch employees");
 }

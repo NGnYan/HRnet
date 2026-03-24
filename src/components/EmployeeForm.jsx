@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { sanitizeInput, nameRegex, zipCodeRegex } from "../utils.js";
+import { nameRegex, zipCodeRegex } from "../utils.js";
 import { createEmployee } from "../employeeService.js";
 import DateField from "./DateField.jsx";
 import SelectField from "./SelectField.jsx";
@@ -40,7 +40,7 @@ function EmployeeForm() {
       return;
     }
 
-    setForm((prev) => ({ ...prev, [name]: sanitizeInput(value) }));
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const capitalizeWords = (text) =>

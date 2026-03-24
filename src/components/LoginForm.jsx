@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { sanitizeInput, emailRegex } from "../utils.js";
+import { emailRegex } from "../utils.js";
 import "../styles/components/LoginForm.css";
 
 function LoginForm() {
@@ -34,7 +34,7 @@ function LoginForm() {
             id="username"
             value={email}
             onChange={(e) => {
-              setEmail(sanitizeInput(e.target.value));
+              setEmail(e.target.value);
               setEmailError("");
             }}
             required
@@ -48,7 +48,7 @@ function LoginForm() {
             type="password"
             id="password"
             value={password}
-            onChange={(e) => setPassword(sanitizeInput(e.target.value))}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
