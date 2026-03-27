@@ -1,11 +1,17 @@
+import { useLocation } from "react-router-dom";
 import EmployeeForm from "../components/EmployeeForm";
 import "../styles/pages/Home.css";
 
 function Home() {
+  const location = useLocation();
+  const employeeToEdit = location.state?.employee || null;
+
   return (
     <>
-      <h2 className="page-title">Create Employee</h2>
-      <EmployeeForm />
+      <h2 className="page-title">
+        {employeeToEdit ? "Edit Employee" : "Create Employee"}
+      </h2>
+      <EmployeeForm employee={employeeToEdit} />
     </>
   );
 }

@@ -20,3 +20,23 @@ export async function getEmployees() {
     return JSON.parse(localStorage.getItem("employees")) || [];
   }, "Failed to fetch employees");
 }
+
+export async function deleteEmployeeById(id) {
+  return genericCall(() => {
+    const employees = JSON.parse(localStorage.getItem("employees")) || [];
+    const remainingEmployees = employees.filter(
+      (employee) => employee.id !== id,
+    );
+    localStorage.setItem("employees", JSON.stringify(remainingEmployees));
+  }, "Failed to delete employee");
+}
+
+export async function updateEmployee(employee) {
+  return genericCall(() => {
+    const employees = JSON.parse(localStorage.getItem("employees")) || [];
+    const updatedEmployees = employees.map((e) =>
+      e.id === employee.id ? employee : e,
+    );
+    localStorage.setItem("employees", JSON.stringify(updatedEmployees));
+  }, "Failed to update employee");
+}

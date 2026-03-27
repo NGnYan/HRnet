@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { nameRegex, zipCodeRegex } from "../utils.js";
-import { createEmployee } from "../employeeService.js";
+import { createEmployee, updateEmployee } from "../employeeService.js";
 import DateField from "./DateField.jsx";
 import SelectField from "./SelectField.jsx";
 import Modal from "./Modal.jsx";
 import states from "../data/states.json";
 import departments from "../data/departments.json";
 import { useDispatch } from "react-redux";
-import { addEmployee } from "../redux/employeesSlice.js";
+import { addEmployee, updateEmployeeInStore } from "../redux/employeesSlice.js";
 import "../styles/components/EmployeeForm.css";
 
-function EmployeeForm() {
-  const initialState = {
+function EmployeeForm({ employee = null }) {
+  const initialState = employee || {
     firstName: "",
     lastName: "",
     dateOfBirth: "",
@@ -78,15 +78,20 @@ function EmployeeForm() {
 
     const newEmployee = {
       ...form,
-      id: crypto.randomUUID(),
+      id: employee ? employee.id : crypto.randomUUID(),
       firstName: capitalizeWords(form.firstName.trim()),
       lastName: capitalizeWords(form.lastName.trim()),
       street: capitalizeWords(form.street.trim()),
       city: capitalizeWords(form.city.trim()),
     };
 
-    await createEmployee(newEmployee);
-    dispatch(addEmployee(newEmployee));
+    if (employee) {
+      await updateEmployee(newEmployee);
+      dispatch(updateEmployeeInStore(newEmployee));
+    } else {
+      await createEmployee(newEmployee);
+      dispatch(addEmployee(newEmployee));
+    }
 
     setShowModal(true);
     setForm(initialState);
@@ -220,7 +225,7 @@ function EmployeeForm() {
 
       {showModal && (
         <Modal
-          message="Employee Created!"
+          message={employee ? "Employee updated!" : "Employee created!"}
           onClose={() => setShowModal(false)}
         />
       )}
