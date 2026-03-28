@@ -47,6 +47,7 @@ function EmployeesList() {
             headerBgColor="#87A353"
             searchable={true}
             sortable={true}
+            headerSortable={true}
             sortPlaceholder="-"
             searchPosition="left"
             sortPosition="right"
