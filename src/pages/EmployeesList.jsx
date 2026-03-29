@@ -36,7 +36,7 @@ function EmployeesList() {
 
   return (
     <>
-      <h2 className="page-title">Current Employees</h2>
+      <h2 className="employees_list_page-title">Current Employees</h2>
       <div className="table-container">
         {isLoading ? (
           <LoadingLayout />
