@@ -56,6 +56,11 @@ function EmployeesList() {
             onEdit={handleEdit}
             actionEditColor="#87A353"
             actionDeleteColor="#e05252"
+            pagination={true}
+            rowsPerPage={3}
+            paginationBgColor="#87A353"
+            paginationActiveTextColor="#FFFFFF"
+            paginationTextColor="#000000"
           />
         )}
       </div>
