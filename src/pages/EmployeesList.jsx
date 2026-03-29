@@ -51,7 +51,7 @@ function EmployeesList() {
             sortPlaceholder="-"
             searchPosition="left"
             sortPosition="right"
-            sortLabel="Trier par :"
+            sortLabel="Sort by :"
             onDelete={handleDelete}
             onEdit={handleEdit}
             actionEditColor="#87A353"

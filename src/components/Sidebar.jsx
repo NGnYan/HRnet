@@ -6,7 +6,7 @@ function Sidebar() {
   return (
     <aside className="sidebar">
       <Link to="/" className="sidebar__logo">
-        <img src={logo} alt="HRnet logo" />
+        <img src={logo} alt="HRnet logo" width="70" height="70" />
         <span>HRnet</span>
       </Link>
 
