@@ -7,7 +7,11 @@ import Modal from "./Modal.jsx";
 import states from "../data/states.json";
 import departments from "../data/departments.json";
 import { useDispatch } from "react-redux";
-import { addEmployee, updateEmployeeInStore } from "../redux/employeesSlice.js";
+import {
+  addEmployee,
+  updateEmployeeInStore,
+  deleteEmployee,
+} from "../redux/employeesSlice.js";
 import "../styles/components/EmployeeForm.css";
 
 function EmployeeForm({ employee = null }) {
@@ -24,8 +28,7 @@ function EmployeeForm({ employee = null }) {
   };
 
   const [form, setForm] = useState(initialState);
-  const [submitted, setSubmitted] = useState(false);
-  const [formError, setFormError] = useState("");
+  const [errors, setErrors] = useState({});
   const [showModal, setShowModal] = useState(false);
 
   const dispatch = useDispatch();
@@ -50,31 +53,49 @@ function EmployeeForm({ employee = null }) {
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
 
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!form.firstName.trim() || !nameRegex.test(form.firstName.trim())) {
+      newErrors.firstName = "Please enter a valid first name";
+    }
+    if (!form.lastName.trim() || !nameRegex.test(form.lastName.trim())) {
+      newErrors.lastName = "Please enter a valid last name";
+    }
+    if (!form.dateOfBirth) {
+      newErrors.dateOfBirth = "Please enter a date of birth";
+    }
+    if (!form.startDate) {
+      newErrors.startDate = "Please enter a start date";
+    }
+    if (!form.street.trim()) {
+      newErrors.street = "Please enter a street";
+    }
+    if (!form.city.trim() || !nameRegex.test(form.city.trim())) {
+      newErrors.city = "Please enter a valid city";
+    }
+    if (!form.state) {
+      newErrors.state = "Please select a state";
+    }
+    if (!zipCodeRegex.test(form.zipCode)) {
+      newErrors.zipCode = "Please enter a valid zip code";
+    }
+    if (!form.department) {
+      newErrors.department = "Please select a department";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
 
-    const allFieldsFilled =
-      form.firstName.trim() &&
-      nameRegex.test(form.firstName.trim()) &&
-      form.lastName.trim() &&
-      nameRegex.test(form.lastName.trim()) &&
-      form.dateOfBirth &&
-      form.startDate &&
-      form.street.trim() &&
-      form.city.trim() &&
-      nameRegex.test(form.city.trim()) &&
-      form.state &&
-      zipCodeRegex.test(form.zipCode) &&
-      form.department;
-
-    if (!allFieldsFilled) {
-      setFormError("Please complete all required fields correctly.");
+    if (!validateForm()) {
       return;
     }
 
-    setFormError("");
-    setSubmitted(false);
+    setErrors({});
 
     const newEmployee = {
       ...form,
@@ -86,11 +107,21 @@ function EmployeeForm({ employee = null }) {
     };
 
     if (employee) {
-      await updateEmployee(newEmployee);
-      dispatch(updateEmployeeInStore(newEmployee));
+      try {
+        dispatch(updateEmployeeInStore(newEmployee));
+        await updateEmployee(newEmployee);
+      } catch (error) {
+        dispatch(updateEmployeeInStore(employee));
+        console.error("Failed to update employee", error);
+      }
     } else {
-      await createEmployee(newEmployee);
-      dispatch(addEmployee(newEmployee));
+      try {
+        dispatch(addEmployee(newEmployee));
+        await createEmployee(newEmployee);
+      } catch (error) {
+        dispatch(deleteEmployee(newEmployee.id));
+        console.error("Failed to create employee", error);
+      }
     }
 
     setShowModal(true);
@@ -105,31 +136,26 @@ function EmployeeForm({ employee = null }) {
             <label htmlFor="firstName">First Name</label>
             <input
               id="firstName"
-              className={`input-normal ${
-                submitted &&
-                (!form.firstName.trim() ||
-                  !nameRegex.test(form.firstName.trim()))
-                  ? "input-error"
-                  : ""
-              }`}
+              className={`input-normal ${errors.firstName ? "input-error" : ""}`}
               name="firstName"
               value={form.firstName}
               onChange={handleChange}
             />
+            {errors.firstName && (
+              <p className="field-error">{errors.firstName}</p>
+            )}
 
             <label htmlFor="lastName">Last Name</label>
             <input
               id="lastName"
-              className={`input-normal ${
-                submitted &&
-                (!form.lastName.trim() || !nameRegex.test(form.lastName.trim()))
-                  ? "input-error"
-                  : ""
-              }`}
+              className={`input-normal ${errors.lastName ? "input-error" : ""}`}
               name="lastName"
               value={form.lastName}
               onChange={handleChange}
             />
+            {errors.lastName && (
+              <p className="field-error">{errors.lastName}</p>
+            )}
 
             <DateField
               label="Date of Birth"
@@ -137,8 +163,11 @@ function EmployeeForm({ employee = null }) {
               value={form.dateOfBirth}
               max={today}
               onChange={handleChange}
-              className={submitted && !form.dateOfBirth ? "input-error" : ""}
+              className={errors.dateOfBirth ? "input-error" : ""}
             />
+            {errors.dateOfBirth && (
+              <p className="field-error">{errors.dateOfBirth}</p>
+            )}
 
             <DateField
               label="Start Date"
@@ -146,35 +175,33 @@ function EmployeeForm({ employee = null }) {
               value={form.startDate}
               max={today}
               onChange={handleChange}
-              className={submitted && !form.startDate ? "input-error" : ""}
+              className={errors.startDate ? "input-error" : ""}
             />
+            {errors.startDate && (
+              <p className="field-error">{errors.startDate}</p>
+            )}
           </div>
 
           <div className="form-section">
             <label htmlFor="streetName">Street</label>
             <input
               id="streetName"
-              className={`input-normal ${
-                submitted && !form.street.trim() ? "input-error" : ""
-              }`}
+              className={`input-normal ${errors.street ? "input-error" : ""}`}
               name="street"
               value={form.street}
               onChange={handleChange}
             />
+            {errors.street && <p className="field-error">{errors.street}</p>}
 
             <label htmlFor="cityName">City</label>
             <input
               id="cityName"
-              className={`input-normal ${
-                submitted &&
-                (!form.city.trim() || !nameRegex.test(form.city.trim()))
-                  ? "input-error"
-                  : ""
-              }`}
+              className={`input-normal ${errors.city ? "input-error" : ""}`}
               name="city"
               value={form.city}
               onChange={handleChange}
             />
+            {errors.city && <p className="field-error">{errors.city}</p>}
 
             <SelectField
               label="State"
@@ -185,17 +212,14 @@ function EmployeeForm({ employee = null }) {
                 value: state.abbreviation,
                 label: state.name,
               }))}
-              className={submitted && !form.state ? "input-error" : ""}
+              className={errors.state ? "input-error" : ""}
             />
+            {errors.state && <p className="field-error">{errors.state}</p>}
 
             <label htmlFor="zipCode">Zip Code</label>
             <input
               id="zipCode"
-              className={`input-normal ${
-                submitted && !zipCodeRegex.test(form.zipCode)
-                  ? "input-error"
-                  : ""
-              }`}
+              className={`input-normal ${errors.zipCode ? "input-error" : ""}`}
               type="text"
               name="zipCode"
               value={form.zipCode}
@@ -203,6 +227,7 @@ function EmployeeForm({ employee = null }) {
               maxLength={5}
               inputMode="numeric"
             />
+            {errors.zipCode && <p className="field-error">{errors.zipCode}</p>}
 
             <SelectField
               label="Department"
@@ -210,13 +235,15 @@ function EmployeeForm({ employee = null }) {
               value={form.department}
               onChange={handleChange}
               options={departments}
-              className={submitted && !form.department ? "input-error" : ""}
+              className={errors.department ? "input-error" : ""}
             />
+            {errors.department && (
+              <p className="field-error">{errors.department}</p>
+            )}
           </div>
         </div>
 
         <div className="form-footer">
-          {formError && <p className="form-error">{formError}</p>}
           <button type="submit" className="save-btn">
             Save
           </button>

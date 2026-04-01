@@ -17,17 +17,32 @@ function EmployeesList() {
 
   useEffect(() => {
     async function loadEmployees() {
-      setIsLoading(true);
-      const data = await getEmployees();
-      dispatch(setEmployees(data));
-      setIsLoading(false);
+      try {
+        setIsLoading(true);
+        const data = await getEmployees();
+        dispatch(setEmployees(data));
+      } finally {
+        setIsLoading(false);
+      }
     }
     loadEmployees();
   }, [dispatch]);
 
   const handleDelete = async (row) => {
-    await deleteEmployeeById(row.id);
-    dispatch(deleteEmployee(row.id));
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this user?",
+    );
+
+    if (!isConfirmed) return;
+
+    try {
+      dispatch(deleteEmployee(row.id));
+      await deleteEmployeeById(row.id);
+    } catch (error) {
+      dispatch(setEmployees(employees));
+      console.error("Failed to delete employee:", error);
+      alert("An error occurred while deleting the user.");
+    }
   };
 
   const handleEdit = (row) => {
