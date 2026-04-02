@@ -11,7 +11,10 @@ function Home() {
       <h2 className="home__page-title">
         {employeeToEdit ? "Edit Employee" : "Create Employee"}
       </h2>
-      <EmployeeForm employee={employeeToEdit} />
+      <EmployeeForm
+        key={employeeToEdit?.id ?? "new"}
+        employee={employeeToEdit}
+      />
     </>
   );
 }
