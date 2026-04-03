@@ -45,3 +45,10 @@ label {
 .address {
   margin-top: 10px;
 }
+
+@media (max-width: 768px) {
+  main {
+    margin-left: 0;
+    padding: 1rem;
+  }
+}
