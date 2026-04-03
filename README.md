@@ -4,7 +4,7 @@
 ![Redux](https://img.shields.io/badge/Redux_Toolkit-2.x-764ABC?logo=redux)
 ![Vite](https://img.shields.io/badge/Vite-6.x-646CFF?logo=vite)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green)
-> 🔗 [GitHub Repository](https://github.com/NGnYan/HRnet)
+
  
 A modern HR management application built with React, Redux Toolkit and [@ngnyan/data-table](https://www.npmjs.com/package/@ngnyan/data-table).
  
