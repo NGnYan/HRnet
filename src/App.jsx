@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Layout from "./components/Layout.jsx";
 import LoadingState from "./components/LoadingState.jsx";
@@ -12,7 +12,7 @@ const ErrorPage = lazy(() => import("./pages/ErrorPage.jsx"));
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Suspense fallback={<LoadingState />}>
         <Routes>
           <Route path="/login" element={<Login />} />
@@ -38,7 +38,7 @@ function App() {
           </Route>
         </Routes>
       </Suspense>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
